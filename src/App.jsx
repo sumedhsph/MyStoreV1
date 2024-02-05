@@ -14,6 +14,8 @@ import {
   Orders
 } from "./pages";
 
+import { loader as landingLoader } from "./pages/Landing";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,7 +24,8 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Landing />
+        element: <Landing />,
+        loader: landingLoader
       },
       {
         path: "products",
