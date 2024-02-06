@@ -15,7 +15,7 @@ function SingleProduct() {
   //console.log(product);
   const { image, title, price, description, colors, company } =
     product.attributes;
-  const inrPrice = formatPrice(price * 83.04);
+  const inrPrice = formatPrice(price);
   const [productColor, setProductColor] = useState(colors[0]);
   const [amount, setAmount] = useState(1);
   //console.log(colors);
