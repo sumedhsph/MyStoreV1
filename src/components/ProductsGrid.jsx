@@ -9,11 +9,11 @@ function ProductsGrid() {
   return (
     <div className="pt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3 ">
       {products.map((product) => {
-        const { title, image } = product.attributes;
+        const { title, image, price} = product.attributes;
         //convert to INR
-        const inr = product.attributes.price * 83.04;
+        //const inr = product.attributes.price * 83.04;
         //console.log(inr)
-        const rupeesAmount = formatPrice(inr);
+        const rupeesAmount = formatPrice(price);
         return (
           <Link
             key={product.id}
