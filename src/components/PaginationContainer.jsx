@@ -19,7 +19,7 @@ function PaginationContainer() {
     const searchParams = new URLSearchParams(search);
     searchParams.set("page", pageNumber);
     navigate(`${pathname}?${searchParams.toString()}`);
-    window.scrollTo(0,0)
+    window.scrollTo(0,400)
   };
 
   if (pageCount < 2) return null;
