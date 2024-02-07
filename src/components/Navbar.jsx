@@ -1,30 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BsCart3, BsMoonFill, BsSunFill } from "react-icons/bs";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 import NavLinks from "./NavLinks";
-import { useSelector } from "react-redux";
-const themes = {
-  winter: "winter",
-  night: "night"
-};
-const getThemeFromLocalStorage = () => {
-    return localStorage.getItem('theme') || themes.winter;
-  };
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTheme } from "../features/user/userSlice";
+
+
 function Navbar() {
-  const [theme, setTheme] = useState(getThemeFromLocalStorage);
-
+ // const [theme, setTheme] = useState(getThemeFromLocalStorage);
+  const dispatch = useDispatch()
   const handleTheme = () => {
-    const { winter, night } = themes;
-    const newTheme = theme === winter ? night : winter;
-    
-    setTheme(newTheme);
+     dispatch(toggleTheme())
   };
-
-  useEffect(()=>{
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem('theme', theme)
-  },[theme])
+ 
 
   //show number of item in cart icon
   const numItemsInCart = useSelector((state) => state.cartState.numItemsInCart);
