@@ -4,6 +4,8 @@ import { formatPrice, customFetch } from "../utils/customFetch";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { addItem } from "../features/cart/cartSlice";
 
 export const loader = async ({ params }) => {
   const res = await customFetch(`/products/${params.id}`);
@@ -24,10 +26,25 @@ function SingleProduct() {
     setAmount(parseInt(e.target.value));
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-  useEffect(()=>{
-    window.scrollTo(0,0);
-  },[])
+  const cartProduct = {
+    cartID: product.id + productColor,
+    productID: product.id,
+    image,
+    title,
+    price,
+    company,
+    productColor,
+    amount
+  };
+  const dispatch = useDispatch();
+
+  const addToCart = () => {
+    dispatch(addItem({ product: cartProduct }));
+  };
 
   return (
     <div>
@@ -100,8 +117,12 @@ function SingleProduct() {
             </select>
           </div>
 
-          <button className="btn btn-secondary btn-md mt-6">Add to cart <FaCartPlus/></button>
-
+          <button
+            className="btn btn-secondary btn-md mt-6"
+            onClick={addToCart}
+          >
+            Add to cart <FaCartPlus />
+          </button>
         </div>
       </div>
     </div>
