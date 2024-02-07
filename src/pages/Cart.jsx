@@ -3,8 +3,7 @@ import { useSelector } from "react-redux";
 import { CartTotal, CartItemsList, SectionHeadings } from "../components";
 import { Link } from "react-router-dom";
 function Cart() {
-  //temp
-  const user = null;
+  const user = useSelector((state)=>state.userState.user);
   const numItemsCart = useSelector((state) => state.cartState.numItemsCart);
 
   if (numItemsCart === 0) {
