@@ -5,18 +5,48 @@ import { toast } from "react-toastify";
 import { loginUser } from "../features/user/userSlice";
 import { useDispatch } from "react-redux";
 
-export const action = (store) => async() => {
-  console.log(`Store: ${store}`)
-  console.log('hello')
-  return null
+export const action = (store) => async ({request}) => {
+ // console.log(store);
+  //console.log('hello')
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+
+  try {
+    const res = await customFetch.post("/auth/local", data);
+    toast.success("Logged in succefully");
+    //console.log(res);
+    store.dispatch(loginUser(res.data))
+    return redirect("/");
+    
+  } catch (error) {
+    const errorMessage =
+      error?.response?.data?.error?.message ||
+      "please double check your credentials";
+    console.log(error);
+    toast.error(errorMessage);
+  }
+  return null;
 };
 
 function Login() {
   return (
     <section className="h-screen grid place-items-center">
-      <Form className="card w-96 p-8 bg-base-100 shadow-lg flex flex-col gap-y-4 ">
-        <FormInput type="email" label="email" name="identifier" defaultValue="four@four.com"/>
-        <FormInput type="password" label="password" name="password" defaultValue="four@four"/>
+      <Form
+        method="POST"
+        className="card w-96 p-8 bg-base-100 shadow-lg flex flex-col gap-y-4 "
+      >
+        <FormInput
+          type="email"
+          label="email"
+          name="identifier"
+          
+        />
+        <FormInput
+          type="password"
+          label="password"
+          name="password"
+           
+        />
         <div className="mt-4">
           <SubmitBtn text="login" className="w-full" />
         </div>
