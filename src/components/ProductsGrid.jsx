@@ -2,6 +2,8 @@ import React from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { BsCurrencyRupee } from "react-icons/bs";
 import { formatPrice } from "../utils/customFetch";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 
 function ProductsGrid() {
   const { products } = useLoaderData();
@@ -21,7 +23,7 @@ function ProductsGrid() {
             className="card w-full border border-solid border-transparent shadow-xl hover:shadow-2xl hover:border-orange-400 transition duration-300 "
           >
             <figure className="px-4 pt-4">
-              <img
+              <LazyLoadImage
                 src={image}
                 alt={title}
                 className="rounded-xl h-64 md:h-48 w-full object-cover"

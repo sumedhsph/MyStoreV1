@@ -6,6 +6,7 @@ import { useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { addItem } from "../features/cart/cartSlice";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export const loader = async ({ params }) => {
   const res = await customFetch(`/products/${params.id}`);
@@ -63,7 +64,7 @@ function SingleProduct() {
       {/* Product */}
       <div className="mt-6 grid gap-y-8 lg:grid-cols-2  lg:gap-x-16">
         {/* IMAGE */}
-        <img
+        <LazyLoadImage
           src={image}
           alt={title}
           className="w-96 h-96 object-cover rounded-lg lg:w-full"

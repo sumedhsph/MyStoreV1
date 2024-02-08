@@ -5,53 +5,61 @@ import { toast } from "react-toastify";
 import { loginUser } from "../features/user/userSlice";
 import { useDispatch } from "react-redux";
 
-export const action = (store) => async ({request}) => {
- // console.log(store);
-  //console.log('hello')
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
+export const action =
+  (store) =>
+  async ({ request }) => {
+    // console.log(store);
+    //console.log('hello')
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
 
-  try {
-    const res = await customFetch.post("/auth/local", data);
-    toast.success("Logged in succefully");
-    //console.log(res);
-    store.dispatch(loginUser(res.data))
-    return redirect("/");
-    
-  } catch (error) {
-    const errorMessage =
-      error?.response?.data?.error?.message ||
-      "please double check your credentials";
-    console.log(error);
-    toast.error(errorMessage);
-  }
-  return null;
-};
+    try {
+      const res = await customFetch.post("/auth/local", data);
+      toast.success("Logged in succefully");
+      //console.log(res);
+      store.dispatch(loginUser(res.data));
+      return redirect("/");
+    } catch (error) {
+      const errorMessage =
+        error?.response?.data?.error?.message ||
+        "please double check your credentials";
+      console.log(error);
+      toast.error(errorMessage);
+    }
+    return null;
+  };
 
 function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const loginAsGuestUser = async () => {
+    try {
+      const response = await customFetch.post("/auth/local", {
+        identifier: "test@test.com",
+        password: "secret"
+      });
+      dispatch(loginUser(response.data));
+      toast.success("welcome guest user");
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      toast.error("guest user login error.please try later.");
+    }
+  };
+
   return (
     <section className="h-screen grid place-items-center">
       <Form
         method="POST"
         className="card w-96 p-8 bg-base-100 shadow-lg flex flex-col gap-y-4 "
       >
-        <FormInput
-          type="email"
-          label="email"
-          name="identifier"
-          
-        />
-        <FormInput
-          type="password"
-          label="password"
-          name="password"
-           
-        />
+        <FormInput type="email" label="email" name="identifier" />
+        <FormInput type="password" label="password" name="password" />
         <div className="mt-4">
           <SubmitBtn text="login" className="w-full" />
         </div>
 
-        <button type="button" className="btn btn-neutral btn-block uppercase">
+        <button type="button" className="btn btn-neutral btn-block uppercase" onClick={loginAsGuestUser}>
           guest user
         </button>
         <p className="text-center">
