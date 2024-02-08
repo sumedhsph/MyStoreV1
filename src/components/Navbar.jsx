@@ -50,9 +50,9 @@ function Navbar() {
             <input type="checkbox" onChange={handleTheme} />
 
             {/* sun icon */}
-            <BsSunFill className="swap-off h-4 w-4" />
+            <BsSunFill className="swap-on h-4 w-4" />
             {/* moon icon */}
-            <BsMoonFill className="swap-on h-4 w-4" />
+            <BsMoonFill className="swap-off h-4 w-4" />
           </label>
           {/* CART LINK*/}
           <NavLink to="cart" className="btn btn-ghost btn-circle btn-md ml-4">
