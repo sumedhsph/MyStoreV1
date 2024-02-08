@@ -6,7 +6,7 @@ import { loginUser } from "../features/user/userSlice";
 import { useDispatch } from "react-redux";
 
 export const action = (store) => async() => {
-  //console.log(`Store: ${store}`)
+  console.log(`Store: ${store}`)
   console.log('hello')
   return null
 };
